@@ -1,1 +1,1 @@
-APT::Update::Post-Invoke-Success {"/etc/ntfy.sh >/dev/null 2>&1 || true"; };
+DPkg::Post-Invoke-Success {"/etc/ntfy.sh || true"; };

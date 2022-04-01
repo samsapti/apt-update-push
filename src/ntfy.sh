@@ -1,5 +1,7 @@
 #!/bin/sh
 
+[ -t 1 ] || exit 0  # exit if stdout is a terminal
+
 TOPIC="REPLACE_TOPIC"
 SVC="$(needrestart -b)"
 
