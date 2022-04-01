@@ -1,1 +1,1 @@
-DPkg::Post-Invoke-Success {"/etc/ntfy.sh || true"; };
+DPkg::Post-Invoke {"/etc/ntfy.sh || true"; };
