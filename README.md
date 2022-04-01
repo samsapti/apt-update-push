@@ -8,5 +8,12 @@ It requires you to have the [NTFY app](https://ntfy.sh) installed on your phone 
 To install it, just run this command:
 
 ```bash
-sudo bash install.sh
+$ sudo bash install.sh
+```
+
+It will prompt you to enter your "topic" for NTFY, but there's also the possibility to put it inside a `.env` file like so:
+
+```bash
+# .env
+topic="your-topic-here"
 ```
