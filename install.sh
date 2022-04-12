@@ -11,7 +11,7 @@ cp -fv src/upgrade.sh /etc/upgrade.sh
 sed -i "s/REPLACE_TOPIC/$topic/g" /etc/upgrade.sh
 chmod +x /etc/upgrade.sh
 
-if ! echo "$CURRENT_CRON" | grep -Fq "$CRONJOB"; then
+if ! crontab -u root -l | grep -Fq "$CRONJOB"; then
     crontab -u root -l >/dev/null 2>&1 && CRONJOB="$(crontab -u root -l)\n\n$CRONJOB"
 
     echo "We're going to run unattended-upgrades via a cronjob instead of systemd."
