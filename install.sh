@@ -11,12 +11,11 @@ cp -fv src/upgrade.sh /etc/upgrade.sh
 sed -i "s/REPLACE_TOPIC/$topic/g" /etc/upgrade.sh
 chmod +x /etc/upgrade.sh
 
-echo "We're going to run unattended-upgrades via a cronjob instead of systemd."
-echo -n "Please choose 'no' on the next prompt. Press enter when you're ready" \
-    && read
-dpkg-reconfigure unattended-upgrades
-
-echo "$CURRENT_CRON" | grep -Fq "$CRONJOB" \
-    || echo "$CURRENT_CRON\n\n$CRONJOB" | crontab -u root -
+if ! echo "$CURRENT_CRON" | grep -Fq "$CRONJOB"; then
+    echo "We're going to run unattended-upgrades via a cronjob instead of systemd."
+    echo -n "Please choose 'no' on the next prompt. Press enter when you're ready" && read
+    dpkg-reconfigure unattended-upgrades
+    echo "$CURRENT_CRON\n\n$CRONJOB" | crontab -u root -
+fi
 
 echo "Installed!"
