@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE[0]}")"
+cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
 
 [[ -f .env ]] && source .env
-[[ -z $topic ]] && { echo -n "Enter your topic for https://ntfy.sh: "; read topic; }
+[[ -z $topic ]] && { echo -n "Enter your topic for https://ntfy.sh: "; read -r topic; }
 
 CRONJOB="0 22 * * * /etc/upgrade.sh >/dev/null 2>&1"
 
@@ -14,12 +14,12 @@ chmod +x /etc/upgrade.sh
 if ! crontab -u root -l | grep -Fq "$CRONJOB"; then
     echo "We're going to run unattended-upgrades via a cronjob instead of systemd."
     echo -n "Please choose 'no' on the next prompt. Press enter when you're ready"
-    read
+    read -r
     
     dpkg-reconfigure unattended-upgrades
     
     if crontab -u root -l >/dev/null 2>&1; then
-        echo "$(crontab -u root -l)\n\n$CRONJOB" | crontab -u root -
+        printf "%b" "$(crontab -u root -l)\n\n$CRONJOB\n" | crontab -u root -
     else
         echo "$CRONJOB" | crontab -u root -
     fi
