@@ -7,7 +7,7 @@ On the server side of things, you need three things: `curl`, `needrestart` and `
 
 To install it, just clone the repository and run the install script:
 
-```console
+```sh
 $ git clone https://github.com/theanonymousexyz/apt-update-push.git
 $ sudo ./install.sh
 ```
@@ -19,8 +19,9 @@ It will prompt you to enter your "topic" for ntfy, but there's also the possibil
 topic="your-topic-here"
 ```
 
-## NOTE
+As the script runs `unattended-upgrades` via a cronjob instead of the usual systemd timer, you need to have the following in your `/etc/apt/apt.conf.d/20auto-upgrades`:
 
-I have recently revamped the script to run via a cronjob instead of via systemd, i.e. there are breaking changes. The upgrade also includes some error handling and fixes some issues with duplicate notifications.
+```aptconf
+APT::Periodic::Unattended-Upgrade "0";
+```
 
-If you have previously installed `apt-update-push`, please upgrade it via the `migrate.sh` script.
