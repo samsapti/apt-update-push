@@ -8,7 +8,7 @@ On the server side of things, you need three things: `curl`, `needrestart` and `
 To install it, just clone the repository and run the install script:
 
 ```sh
-$ git clone https://github.com/theanonymousexyz/apt-update-push.git
+$ git clone https://github.com/samsapti/apt-update-push.git
 $ sudo ./install.sh
 ```
 
