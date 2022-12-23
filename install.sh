@@ -13,11 +13,6 @@ read -rp "At what hour do you want the update to occur (enter value in 24 hour f
 CRONJOB="0 $hour * * * /etc/upgrade.sh >/dev/null 2>&1"
 
 if ! crontab -u root -l | grep -Fq "$CRONJOB"; then
-    echo "We're going to run unattended-upgrades via a cronjob instead of systemd."
-    read -rp "Please choose 'no' on the next prompt. Press enter when you're ready."
-    
-    dpkg-reconfigure unattended-upgrades
-    
     if crontab -u root -l >/dev/null 2>&1; then
         printf "%b" "$(crontab -u root -l)\n\n$CRONJOB\n" | crontab -u root -
     else
