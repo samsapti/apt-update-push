@@ -18,6 +18,8 @@ if ! crontab -u root -l | grep -Fq "$CRONJOB"; then
     else
         echo "$CRONJOB" | crontab -u root -
     fi
+
+    systemctl disable --now unattended-upgrades.service apt-daily-upgrade.service
 fi
 
 echo "Installed!"
